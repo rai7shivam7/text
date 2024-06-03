@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Text Display</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            color: black;
+        }
+
+        #input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        #user-input {
+            width: 300px;
+            padding: 10px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #submit-button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #display-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: white;
+        }
+
+        #display-text {
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        h1 {
+            margin: 20px;
+        }
+
+        p {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="input-container">
+        <h1>Big Text Display</h1>
+        <p>Enter your text below and click "Submit" to display it in large size on the screen.</p>
+        <input type="text" id="user-input" placeholder="Enter your text here">
+        <button id="submit-button">Submit</button>
+    </div>
+    <div id="display-container">
+        <button id="back-button"><</button>
+        <span id="display-text"></span>
+    </div>
+    <script>
+        function adjustFontSizeToFit(element) {
+            const parent = element.parentElement;
+            const parentHeight = parent.clientHeight;
+            const parentWidth = parent.clientWidth;
+            let fontSize = 10; // Start with a small font size
+            element.style.fontSize = `${fontSize}px`;
+            
+            while (element.scrollHeight <= parentHeight && element.scrollWidth <= parentWidth && fontSize < 1000) {
+                fontSize += 1;
+                element.style.fontSize = `${fontSize}px`;
+            }
+            
+            // Subtract 1 to ensure it fits within the parent
+            element.style.fontSize = `${fontSize - 1}px`;
+        }
+
+        document.getElementById('submit-button').addEventListener('click', function() {
+            var userInput = document.getElementById('user-input').value;
+            if (userInput.trim() !== "") {
+                var displayText = document.getElementById('display-text');
+                displayText.textContent = userInput;
+                document.getElementById('input-container').style.display = 'none';
+                var displayContainer = document.getElementById('display-container');
+                displayContainer.style.display = 'flex';
+                adjustFontSizeToFit(displayText);
+            }
+        });
+
+        document.getElementById('back-button').addEventListener('click', function() {
+            document.getElementById('input-container').style.display = 'flex';
+            document.getElementById('display-container').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
