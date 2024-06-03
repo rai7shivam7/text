@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Big Text Display</title>
     <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
         body, html {
             height: 100%;
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: white;
-            color: black;
+            background-color: black;
+            color: lime;
         }
 
         #input-container {
@@ -47,21 +49,37 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: white;
+            background-color: black;
+            color: lime;
         }
 
         #display-text {
-            word-wrap: break-word;
+            white-space: nowrap;
             text-align: center;
+            height: 95%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10vw;
+            overflow: hidden;
+            position: relative;
+            background-color: black;
+            color: lime;
         }
 
-        #back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            font-size: 20px;
-            cursor: pointer;
+        #display-text span {
+            display: inline-block;
+            position: relative;
+            animation: marquee 10s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
         }
 
         h1 {
@@ -81,18 +99,16 @@
         <button id="submit-button">Submit</button>
     </div>
     <div id="display-container">
-        <button id="back-button"><</button>
-        <span id="display-text"></span>
+        <div id="display-text"><span></span></div>
     </div>
     <script>
         function adjustFontSizeToFit(element) {
             const parent = element.parentElement;
             const parentHeight = parent.clientHeight;
-            const parentWidth = parent.clientWidth;
             let fontSize = 10; // Start with a small font size
             element.style.fontSize = `${fontSize}px`;
             
-            while (element.scrollHeight <= parentHeight && element.scrollWidth <= parentWidth && fontSize < 1000) {
+            while (element.scrollHeight <= parentHeight && fontSize < 1000) {
                 fontSize += 1;
                 element.style.fontSize = `${fontSize}px`;
             }
@@ -104,18 +120,14 @@
         document.getElementById('submit-button').addEventListener('click', function() {
             var userInput = document.getElementById('user-input').value;
             if (userInput.trim() !== "") {
-                var displayText = document.getElementById('display-text');
-                displayText.textContent = userInput;
+                var displayTextSpan = document.getElementById('display-text').firstChild;
+                displayTextSpan.textContent = userInput;
                 document.getElementById('input-container').style.display = 'none';
                 var displayContainer = document.getElementById('display-container');
                 displayContainer.style.display = 'flex';
-                adjustFontSizeToFit(displayText);
+                adjustFontSizeToFit(displayTextSpan);
+                displayTextSpan.style.animation = 'marquee 10s linear infinite';
             }
-        });
-
-        document.getElementById('back-button').addEventListener('click', function() {
-            document.getElementById('input-container').style.display = 'flex';
-            document.getElementById('display-container').style.display = 'none';
         });
     </script>
 </body>
