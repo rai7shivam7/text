@@ -46,18 +46,18 @@
             justify-content: center;
             height: 100%;
             width: 100%;
-            position: relative;
+            position: fixed;
             top: 0;
             left: 0;
-            background-color: white;
+            background-color: black;
             color: lime;
         }
 
         #display-text {
             white-space: nowrap;
             text-align: center;
-            height: 80%;
-            display:flex;
+            height: 95%;
+            display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
@@ -69,7 +69,6 @@
         #display-text span {
             display: inline-block;
             position: relative;
-            animation: marquee 10s linear infinite;
         }
 
         @keyframes marquee {
