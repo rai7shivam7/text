@@ -56,7 +56,7 @@
         #display-text {
             white-space: nowrap;
             text-align: center;
-            height: 160px;
+            height: 100%;
             width: 100%;
             display:inline;
             align-items: center;
@@ -97,9 +97,8 @@
         <input type="text" id="user-input" placeholder="Enter your text here">
         <button id="submit-button">Submit</button>
     </div>
-    <div id="display-container">
         <div id="display-text"><span></span></div>
-    </div>
+    
     <script>
         function adjustFontSizeToFit(element) {
             const parent = element.parentElement;
@@ -122,8 +121,6 @@
                 var displayTextSpan = document.getElementById('display-text').firstChild;
                 displayTextSpan.textContent = userInput;
                 document.getElementById('input-container').style.display = 'none';
-                var displayContainer = document.getElementById('display-container');
-                displayContainer.style.display = 'flex';
                 adjustFontSizeToFit(displayTextSpan);
                 displayTextSpan.style.animation = 'marquee 10s linear infinite';
             }
